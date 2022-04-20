@@ -1,0 +1,41 @@
+{
+  "name": "telegram-action",
+  "version": "1.0.0",
+  "description": "A GitHub Action for sending build status alerts to a Telegram chat",
+  "private": true,
+  "scripts": {
+    "clean": "rimraf dist",
+    "prebuild": "npm run lint",
+    "build": "npm run clean && tsc",
+    "build:test": "npm run build -- --project tsconfig.test.json",
+    "test": "mocha -b -c --timeout 30000 --extension spec.js --recursive --exit \"dist/$npm_config_files\"",
+    "test:ts": "mocha -r ts-node/register -b -c --timeout 30000 --extension spec.ts --recursive --exit \"src/$npm_config_files\"",
+    "lint": "eslint --ext .ts src",
+    "lint:fix": "npm run lint -- --fix"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/andrewscwei/telegram-action"
+  },
+  "author": "Andrew Wei <andrewscwei@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/chai": "^4.3.1",
+    "@types/lodash": "^4.14.182",
+    "@types/mocha": "^9.1.0",
+    "@typescript-eslint/eslint-plugin": "^5.20.0",
+    "@typescript-eslint/parser": "^5.20.0",
+    "chai": "^4.3.6",
+    "eslint": "^8.13.0",
+    "mocha": "^9.2.2",
+    "rimraf": "^3.0.2",
+    "ts-node": "^10.7.0",
+    "typescript": "^4.6.3"
+  },
+  "dependencies": {
+    "@actions/core": "^1.6.0",
+    "@actions/github": "^5.0.1",
+    "axios": "^0.26.1",
+    "lodash": "^4.17.21"
+  }
+}
