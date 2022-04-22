@@ -31,7 +31,7 @@ export function composeStatus(context: Context, inputs: Inputs) {
 
 export function composeBody(context: Context, inputs: Inputs) {
   const repoUrl = `https://github.com/${context.repo}`
-  const shaStr = `[\`${context.sha.substring(0, 7)}\`](${repoUrl}/commit/${context.sha})`
+  const shaStr = `[\\[${context.sha.substring(0, 7)}\\]](${repoUrl}/commit/${context.sha})`
 
   return `${shaStr} ${escapeMarkdownV2(context.commitMessage ?? '')}`
 }
