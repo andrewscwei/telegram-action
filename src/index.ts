@@ -17,7 +17,8 @@ async function main() {
     params: {
       'chat_id': inputs.chatId,
       'text': message,
-      'disable_web_page_preview': false,
+      'parse_mode': 'MarkdownV2',
+      'disable_web_page_preview': true,
     },
   })
     .then(res => {

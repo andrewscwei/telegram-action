@@ -1,5 +1,6 @@
 import _ from 'lodash'
 import { Context } from './context'
+import escapeMarkdownV2 from './escapeMarkdownV2'
 import { Inputs } from './inputs'
 
 function prefix(value?: string) {
@@ -20,27 +21,26 @@ export function composeStatus(context: Context, inputs: Inputs) {
   const matches = `${context.ref}`.match(/^refs\/[^/]+\/(.*)$/)
   const refName = matches?.[1] ?? context.ref
   const repoUrl = `https://github.com/${context.repo}`
-  const repoStr = `<${repoUrl}|${context.repo}>`
-  const refStr = `<${repoUrl}/tree/${refName}|${refName}>`
+  const repoStr = `[${escapeMarkdownV2(context.repo)}](${repoUrl})`
+  const refStr = `[\\(${escapeMarkdownV2(refName)}\\)](${repoUrl}/tree/${refName})`
 
-  statusStr += ` in ${repoStr} \`${refStr}\``
+  statusStr += ` in ${repoStr} ${refStr}`
 
   return statusStr
 }
 
 export function composeBody(context: Context, inputs: Inputs) {
   const repoUrl = `https://github.com/${context.repo}`
-  const shaStr = `\`<${repoUrl}/commit/${context.sha}|${context.sha.substring(0, 7)}>\``
+  const shaStr = `[\`${context.sha.substring(0, 7)}\`](${repoUrl}/commit/${context.sha})`
 
-  return `${shaStr} ${context.commitMessage}`
+  return `${shaStr} ${escapeMarkdownV2(context.commitMessage ?? '')}`
 }
 
 export function composeFooter(context: Context, inputs: Inputs) {
-  const repoUrl = `https://github.com/${context.repo}`
-  const actorLink = `<https://github.com/${context.actor}|${context.actor}>`
-  const workflowStr = `*<${repoUrl}/actions?query=workflow%3A${context.workflow}|${context.workflow}>*`
+  const actorLink = `[@${escapeMarkdownV2(context.actor)}](https://github.com/${context.actor})`
+  const workflowStr = `[*${context.workflow}*](https://github.com/${context.repo}/actions?query=workflow%3A${context.workflow})`
 
-  return`${actorLink} using workflow ${workflowStr}`
+  return `${actorLink} using workflow ${workflowStr}`
 }
 
 export function composeActions(context: Context, inputs: Inputs) {
@@ -51,19 +51,20 @@ export function composeActions(context: Context, inputs: Inputs) {
   buttons.push(`[View job](${jobUrl})`)
 
   if (inputs.isSuccess && inputs.action) {
-    buttons.push(`[${inputs.action.label}](${inputs.action.url})`)
+    buttons.push(`[*${escapeMarkdownV2(inputs.action.label)}*](${inputs.action.url})`)
   }
 
   return buttons.join(' ')
 }
 
 export function compose(context: Context, inputs: Inputs) {
-  let ret = ``
+  let ret = ''
   ret += composeStatus(context, inputs)
   ret += '\n'
   ret += composeBody(context, inputs)
   ret += '\n'
   ret += composeFooter(context, inputs)
+  ret += '\n'
   ret += '\n'
   ret += composeActions(context, inputs)
 
