@@ -1,16 +1,16 @@
 name: CD
 on:
   push:
-    branches: ["**"]
+    branches: [master]
 jobs:
-  deploy:
-    name: Deploy
+  release:
+    name: Release
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Cache Node modules
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         env:
           cache-name: cache-node-modules
         with:
@@ -24,7 +24,7 @@ jobs:
         run: npm install
       - name: Test
         run: npm run build:test && npm test
-      - name: Deploy to releases
-        run: .github/workflows/deploy_to_release.sh
+      - name: Create release
+        run: .github/workflows/create_release.sh
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
