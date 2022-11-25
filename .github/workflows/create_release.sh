@@ -51,4 +51,6 @@ fi
 git tag ${VERSION}
 git push --tags
 
+gh release create ${VERSION} --generate-notes
+
 echo "Successfully created release for ${VERSION}"
