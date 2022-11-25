@@ -5,6 +5,7 @@ import { Inputs } from './inputs'
 
 function prefix(value?: string) {
   if (_.isEmpty(value)) return ''
+
   return `${value} `
 }
 
