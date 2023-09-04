@@ -48,7 +48,7 @@ export function getInputs(values?: Partial<Inputs>): Inputs {
   const actionLabel = values?.action?.label ?? getStringInput('action-label', '')
   const actionUrl = values?.action?.url ?? getStringInput('action-url', '')
   const hasAction = actionLabel !== '' && actionUrl !== ''
-  const hasNoAction = actionLabel === '' && actionUrl === ''
+  const hasNoAction = !isSuccess || actionLabel === '' && actionUrl === ''
 
   assert(hasAction || hasNoAction, Error('Both <action-label> and <action-url> inputs must be provided'))
 
