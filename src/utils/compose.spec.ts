@@ -15,7 +15,7 @@ describe('compose', () => {
   })
 
   const mockSuccessInputs = getInputs({
-    prefixes: { success: 'bar', failure: 'baz' },
+    prefixes: { success: 'bar', failure: 'baz', cancelled: 'qux' },
     isSuccess: true,
     botToken: 'foo',
     chatId: 'foo',
@@ -23,7 +23,7 @@ describe('compose', () => {
   })
 
   const mockFailureInputs = getInputs({
-    prefixes: { success: 'bar', failure: 'baz' },
+    prefixes: { success: 'bar', failure: 'baz', cancelled: 'qux' },
     isSuccess: false,
     botToken: 'foo',
     chatId: 'foo',

@@ -7,6 +7,9 @@ inputs:
   failure-prefix:
     description: The prefix to use in a failure alert, defaults to 😱.
     required: false
+  cancelled-prefix:
+    description: The prefix to use in a cancelled alert, defaults to 🫥.
+    required: false
   bot-token:
     description: The Telegram bot token for sending messages.
     required: true
@@ -16,6 +19,9 @@ inputs:
   success:
     description: Specifies whether this is a success or failure alert.
     required: true
+  cancelled:
+    description: Specifies whether this is a cancelled alert.
+    required: false
   action-label:
     description: Label of the action button. If provided along with `action-url`, the action button will be visible if `success` is `true`.
     required: false

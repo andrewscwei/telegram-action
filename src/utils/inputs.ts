@@ -5,10 +5,12 @@ export type Inputs = {
   prefixes: {
     success: string
     failure: string
+    cancelled: string
   }
   botToken: string
   chatId: string
   isSuccess: boolean
+  isCancelled?: boolean
   action?: {
     label: string
     url: string
@@ -39,15 +41,17 @@ export function getBooleanInput(id: string, defaultValue?: boolean): boolean {
   }
 }
 
-export function getInputs(values?: Partial<Inputs>): Inputs {
-  const successPrefix = values?.prefixes?.success ?? getStringInput('success-prefix', '🤖')
-  const failurePrefix = values?.prefixes?.failure ?? getStringInput('failure-prefix', '😱')
-  const botToken = values?.botToken ?? getStringInput('bot-token')
-  const chatId = values?.chatId ?? getStringInput('chat-id')
-  const isSuccess = values?.isSuccess ?? getBooleanInput('success', false)
-  const actionLabel = values?.action?.label ?? getStringInput('action-label', '')
-  const actionUrl = values?.action?.url ?? getStringInput('action-url', '')
-  const hasAction = actionLabel !== '' && actionUrl !== ''
+export function getInputs(mock?: Partial<Inputs>): Inputs {
+  const successPrefix = mock?.prefixes?.success ?? getStringInput('success-prefix', '🤖')
+  const failurePrefix = mock?.prefixes?.failure ?? getStringInput('failure-prefix', '😱')
+  const cancelledPrefix = mock?.prefixes?.cancelled ?? getStringInput('cancelled-prefix', '🫥')
+  const botToken = mock?.botToken ?? getStringInput('bot-token')
+  const chatId = mock?.chatId ?? getStringInput('chat-id')
+  const isSuccess = mock?.isSuccess ?? getBooleanInput('success', false)
+  const isCancelled = mock?.isCancelled ?? getBooleanInput('cancelled', false)
+  const actionLabel = mock?.action?.label ?? getStringInput('action-label', '')
+  const actionUrl = mock?.action?.url ?? getStringInput('action-url', '')
+  const hasAction = isSuccess && actionLabel !== '' && actionUrl !== ''
   const hasNoAction = !isSuccess || actionLabel === '' && actionUrl === ''
 
   assert(hasAction || hasNoAction, Error('Both <action-label> and <action-url> inputs must be provided'))
@@ -56,10 +60,12 @@ export function getInputs(values?: Partial<Inputs>): Inputs {
     prefixes: {
       success: successPrefix,
       failure: failurePrefix,
+      cancelled: cancelledPrefix,
     },
     botToken,
     chatId,
     isSuccess,
+    isCancelled,
     ...hasAction ? {
       action: {
         label: actionLabel,

@@ -40,20 +40,20 @@ describe('inputs', () => {
       botToken: 'foo',
       chatId: 'foo',
     }), {
-      prefixes: { success: '🤖', failure: '😱' },
+      prefixes: { success: '🤖', failure: '😱', cancelled: '🫥' },
       botToken: 'foo',
       chatId: 'foo',
       isSuccess: false,
     })
 
     assert.deepEqual(getInputs({
-      prefixes: { success: 'bar', failure: 'baz' },
+      prefixes: { success: 'bar', failure: 'baz', cancelled: 'qux' },
       isSuccess: true,
       botToken: 'foo',
       chatId: 'foo',
       action: { label: 'bar', url: 'baz' },
     }), {
-      prefixes: { success: 'bar', failure: 'baz' },
+      prefixes: { success: 'bar', failure: 'baz', cancelled: 'qux' },
       botToken: 'foo',
       chatId: 'foo',
       isSuccess: true,
