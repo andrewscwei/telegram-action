@@ -44,6 +44,7 @@ describe('inputs', () => {
       botToken: 'foo',
       chatId: 'foo',
       isSuccess: false,
+      isCancelled: false,
     })
 
     assert.deepEqual(getInputs({
@@ -57,6 +58,7 @@ describe('inputs', () => {
       botToken: 'foo',
       chatId: 'foo',
       isSuccess: true,
+      isCancelled: false,
       action: { label: 'bar', url: 'baz' },
     })
   })
