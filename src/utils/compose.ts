@@ -42,7 +42,7 @@ export function composeBody(context: Context, inputs: Inputs) {
 
 export function composeFooter(context: Context, inputs: Inputs) {
   const actorLink = `[@${escapeMarkdownV2(context.actor)}](https://github.com/${context.actor})`
-  const workflowStr = `[${escapeMarkdownV2(context.workflow)}](https://github.com/${context.repo}/actions?query=workflow%3A${context.workflow})`
+  const workflowStr = `_${escapeMarkdownV2(context.workflow)}_`
 
   return `${actorLink} using workflow ${workflowStr}`
 }
