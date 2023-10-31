@@ -4,18 +4,12 @@ import { compose } from './utils/compose'
 import { getContext } from './utils/context'
 import { getInputs } from './utils/inputs'
 
-async function main() {
-  const context = getContext()
-  const inputs = getInputs()
-  const message = compose(context, inputs)
-  const webhookUrl = `https://api.telegram.org/bot${inputs.botToken}/sendMessage`
-
-  core.info('Sending message via Telegram API:')
-  core.info(JSON.stringify(message, undefined, 2))
+export async function sendMessage(message: string, { botToken = '', chatId = '' } = {}) {
+  const webhookUrl = `https://api.telegram.org/bot${botToken}/sendMessage`
 
   return axios.get(webhookUrl, {
     params: {
-      'chat_id': inputs.chatId,
+      'chat_id': chatId,
       'text': message,
       'parse_mode': 'MarkdownV2',
       'disable_web_page_preview': true,
@@ -29,6 +23,17 @@ async function main() {
           throw new Error(res.data)
       }
     })
+}
+
+async function main() {
+  const context = getContext()
+  const inputs = getInputs()
+  const message = compose(context, inputs)
+
+  core.info('Sending message via Telegram API:')
+  core.info(JSON.stringify(message, undefined, 2))
+
+  return sendMessage(message, { botToken: inputs.botToken, chatId: inputs.chatId })
 }
 
 main()

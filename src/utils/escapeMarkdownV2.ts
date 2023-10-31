@@ -1,14 +1,3 @@
 export default function escapeMarkdownV2(str: string): string {
-  let ret = str
-  ret = ret.replace(/-/g, '\\-')
-  ret = ret.replace(/_/g, '\\_')
-  ret = ret.replace(/\./g, '\\.')
-  ret = ret.replace(/#/g, '\\#')
-  ret = ret.replace(/\|/g, '\\|')
-  ret = ret.replace(/>/g, '\\>')
-  ret = ret.replace(/\(/g, '\\(')
-  ret = ret.replace(/\)/g, '\\)')
-  ret = ret.replace(/\+/g, '\\+')
-
-  return ret
+  return str.replace(/([-_.!|>()+#=*~{}`[\]])/g, '\\$1')
 }
