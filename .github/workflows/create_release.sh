@@ -47,7 +47,7 @@ git push -f --set-upstream ${ORIGIN_URL} ${RELEASE_BRANCH}
 
 gh release create ${VERSION} --generate-notes
 
-git tag -fa ${MAJOR_VERSION} -m "${COMMIT_MESSAGE}"
+git tag -fa ${MAJOR_VERSION} -m "Map ${MAJOR_VERSION} to ${VERSION}"
 git push origin ${MAJOR_VERSION} --force
 
 echo "Successfully created release for ${VERSION}"
