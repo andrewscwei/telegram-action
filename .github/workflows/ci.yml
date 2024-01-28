@@ -4,7 +4,7 @@ on:
     branches: ["**"]
     tags-ignore: ["v*"]
 jobs:
-  release:
+  build:
     name: Build
     runs-on: ubuntu-latest
     steps:
@@ -31,3 +31,15 @@ jobs:
         run: npm run test:unit
       - name: Build
         run: npm run build
+  notify:
+    name: Notify
+    needs: [build]
+    if: ${{ always() }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: andrewscwei/telegram-action@release
+        with:
+          success: ${{ needs.build.result == 'success' }}
+          cancelled: ${{ needs.build.result == 'cancelled' }}
+          bot-token: ${{ secrets.TELEGRAM_DEVOPS_BOT_TOKEN }}
+          chat-id: ${{ secrets.TELEGRAM_DEVOPS_CHAT_ID }}
