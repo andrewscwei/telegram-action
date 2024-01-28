@@ -1,3 +1,5 @@
+import fetch from 'node-fetch'
+
 export async function sendMessage(message: string, { botToken = '', chatId = '' } = {}) {
   const url = new URL(`https://api.telegram.org/bot${botToken}/sendMessage`)
   url.search = new URLSearchParams({
