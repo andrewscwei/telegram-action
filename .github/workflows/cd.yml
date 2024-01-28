@@ -39,3 +39,15 @@ jobs:
         run: .github/workflows/create_release.sh
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  notify:
+    name: Notify
+    needs: [release]
+    if: ${{ always() }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: andrewscwei/telegram-action@release
+        with:
+          success: ${{ needs.release.result == 'success' }}
+          cancelled: ${{ needs.release.result == 'cancelled' }}
+          bot-token: ${{ secrets.TELEGRAM_DEVOPS_BOT_TOKEN }}
+          chat-id: ${{ secrets.TELEGRAM_DEVOPS_CHAT_ID }}
