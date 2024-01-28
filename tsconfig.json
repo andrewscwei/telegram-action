@@ -10,8 +10,8 @@
     "experimentalDecorators": true,
     "forceConsistentCasingInFileNames": true,
     "inlineSources": false,
-    "lib": ["es6"],
-    "module": "commonjs",
+    "lib": ["ESNext"],
+    "module": "esnext",
     "moduleResolution": "node",
     "noImplicitAny": true,
     "outDir": "dist",
@@ -22,11 +22,11 @@
     "sourceMap": false,
     "strict": true,
     "strictNullChecks": true,
-    "target": "es6"
+    "target": "ESNext"
   },
   "include": [
     "src/**/*.ts"
-, "src/.env.index.spec.ts", "src/.env./index.spec.ts"  ],
+  ],
   "exclude": [
     "**/*.spec.ts",
     "node_modules",

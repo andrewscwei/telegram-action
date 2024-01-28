@@ -1,6 +1,6 @@
 import { describe, it } from 'mocha'
-import { sendMessage } from './sendMessage'
-import escapeMarkdownV2 from '../utils/escapeMarkdownV2'
+import { escapeMarkdownV2 } from '../utils/escapeMarkdownV2.js'
+import { sendMessage } from './sendMessage.js'
 
 describe('bot', () => {
   const botToken = process.env.BOT_TOKEN || undefined

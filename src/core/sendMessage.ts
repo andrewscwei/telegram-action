@@ -1,22 +1,19 @@
-import axios from 'axios'
-
 export async function sendMessage(message: string, { botToken = '', chatId = '' } = {}) {
-  const webhookUrl = `https://api.telegram.org/bot${botToken}/sendMessage`
+  const url = new URL(`https://api.telegram.org/bot${botToken}/sendMessage`)
+  url.search = new URLSearchParams({
+    'chat_id': chatId,
+    'text': message,
+    'parse_mode': 'MarkdownV2',
+    'disable_web_page_preview': 'true',
+  }).toString()
 
-  return axios.get(webhookUrl, {
-    params: {
-      'chat_id': chatId,
-      'text': message,
-      'parse_mode': 'MarkdownV2',
-      'disable_web_page_preview': true,
-    },
-  })
-    .then(res => {
-      switch (res.status) {
-        case 200:
-          return res.data
-        default:
-          throw new Error(res.data)
-      }
-    })
+  const res = await fetch(url)
+
+  switch (res.status) {
+    case 200:
+      return res.json()
+    default: {
+      throw await res.json()
+    }
+  }
 }

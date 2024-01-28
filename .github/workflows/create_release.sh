@@ -53,4 +53,9 @@ git push --tags
 
 gh release create ${VERSION} --generate-notes
 
+MAJOR_TAG="$(cut -d '.' -f 1 <<< "$VERSION")"
+
+git tag -fa $MAJOR_TAG -m "Update $MAJOR_TAG tag"
+git push origin $MAJOR_TAG --force
+
 echo "Successfully created release for ${VERSION}"

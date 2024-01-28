@@ -5,9 +5,10 @@ A GitHub Action for sending build status alerts to a Telegram chat.
 ## Usage
 
 ```yml
-uses: andrewscwei/telegram-action@v1.0.0
+uses: andrewscwei/telegram-action@v1
 with:
   success: ${{ needs.build.result == 'success' }}
+  cancelled: ${{ needs.build.result == 'cancelled' }}
   bot-token: ${{ secrets.TELEGRAM_BOT_TOKEN }}
   chat-id: ${{ secrets.TELEGRAM_CHAT_ID }}
 ```

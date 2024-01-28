@@ -1,10 +1,9 @@
-import _ from 'lodash'
-import { Context } from './context'
-import escapeMarkdownV2 from './escapeMarkdownV2'
-import { Inputs } from './inputs'
+import { Context } from './context.js'
+import { escapeMarkdownV2 } from './escapeMarkdownV2.js'
+import { Inputs } from './inputs.js'
 
 function prefix(value?: string) {
-  if (_.isEmpty(value)) return ''
+  if (value === undefined || value === null || value === '') return ''
 
   return `${value} `
 }
