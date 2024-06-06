@@ -1,6 +1,6 @@
-import { Context } from './context.js'
+import { type Context } from './context.js'
 import { escapeMarkdownV2 } from './escapeMarkdownV2.js'
-import { Inputs } from './inputs.js'
+import { type Inputs } from './inputs.js'
 
 function prefix(value?: string) {
   if (value === undefined || value === null || value === '') return ''
