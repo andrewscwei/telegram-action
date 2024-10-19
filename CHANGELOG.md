@@ -1,3 +1,10 @@
+## [1.4.1](https://github.com/andrewscwei/telegram-action/compare/v1.4.0...v1.4.1) (2024-10-19)
+
+
+### Bug Fixes
+
+* Status text ([ad16ba7](https://github.com/andrewscwei/telegram-action/commit/ad16ba7847116c289486760a1324a8be07977046))
+
 # [1.4.0](https://github.com/andrewscwei/telegram-action/compare/v1.3.0...v1.4.0) (2024-10-19)
 
 
