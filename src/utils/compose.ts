@@ -29,14 +29,14 @@ export function composeStatus(context: Context, inputs: Inputs) {
     const prNumber = matches?.[1] ?? context.ref
     const refStr = `[\\(${escapeMarkdownV2(`pr-#${prNumber}`)}\\)](${repoUrl}/pull/${prNumber})`
 
-    statusStr += ` in ${repoStr} \`${refStr}\``
+    statusStr += ` in ${repoStr} ${refStr}`
   }
   else {
     const matches = `${context.ref}`.match(/^refs\/[^/]+\/(.*)$/)
     const refName = matches?.[1] ?? context.ref
     const refStr = `[\\(${escapeMarkdownV2(refName)}\\)](${repoUrl}/tree/${refName})`
 
-    statusStr += ` in ${repoStr} \`${refStr}\``
+    statusStr += ` in ${repoStr} ${refStr}`
   }
 
   return statusStr
