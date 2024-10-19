@@ -13,6 +13,10 @@ with:
   chat-id: ${{ secrets.TELEGRAM_CHAT_ID }}
 ```
 
+## Logging
+
+Access more verbose debug logs by [setting the secret](https://docs.github.com/en/actions/security-for-github-actions/security-guides/using-secrets-in-github-actions#creating-encrypted-secrets) `ACTIONS_STEP_DEBUG` to `true`.
+
 ## Inputs
 
 ### `success-prefix`
@@ -46,9 +50,3 @@ Label of the action button. If provided along with `action-url`, the action butt
 ### `action-url`
 
 Link of the action button. If provided along with `action-label`, the action button will be visible if `success` is `true`.
-
-## Outputs
-
-### `response`
-
-The response of the Telegram API request.

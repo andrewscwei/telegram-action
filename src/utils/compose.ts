@@ -21,20 +21,40 @@ export function composeStatus(context: Context, inputs: Inputs) {
     statusStr += `${prefix(inputs.prefixes.failure)}*BUILD FAILED*`
   }
 
-  const matches = `${context.ref}`.match(/^refs\/[^/]+\/(.*)$/)
-  const refName = matches?.[1] ?? context.ref
   const repoUrl = `https://github.com/${context.repo}`
   const repoStr = `[${escapeMarkdownV2(context.repo)}](${repoUrl})`
-  const refStr = `[\\(${escapeMarkdownV2(refName)}\\)](${repoUrl}/tree/${refName})`
 
-  statusStr += ` in ${repoStr} ${refStr}`
+  if (context.ref.startsWith('refs/pull/')) {
+    const matches = `${context.ref}`.match(/^refs\/pull\/([^/]+)\/.*$/)
+    const prNumber = matches?.[1] ?? context.ref
+    const refStr = `[\\(${escapeMarkdownV2(`pr-#${prNumber}`)}\\)](${repoUrl}/pull/${prNumber})`
+
+    statusStr += ` in ${repoStr} \`${refStr}\``
+  }
+  else {
+    const matches = `${context.ref}`.match(/^refs\/[^/]+\/(.*)$/)
+    const refName = matches?.[1] ?? context.ref
+    const refStr = `[\\(${escapeMarkdownV2(refName)}\\)](${repoUrl}/tree/${refName})`
+
+    statusStr += ` in ${repoStr} \`${refStr}\``
+  }
 
   return statusStr
 }
 
 export function composeBody(context: Context, inputs: Inputs) {
   const repoUrl = `https://github.com/${context.repo}`
-  const shaStr = `[\\[${context.sha.substring(0, 7)}\\]](${repoUrl}/commit/${context.sha})`
+  let shaStr
+
+  if (context.ref.startsWith('refs/pull/')) {
+    const matches = `${context.ref}`.match(/^refs\/pull\/([^/]+)\/.*$/)
+    const prNumber = matches?.[1] ?? context.ref
+
+    shaStr = `[\\[${context.sha.substring(0, 7)}\\]](${repoUrl}/pull/${prNumber}/commits/${context.sha})`
+  }
+  else {
+    shaStr = `[\\[${context.sha.substring(0, 7)}\\]](${repoUrl}/commit/${context.sha})`
+  }
 
   return `${shaStr} ${escapeMarkdownV2(context.commitMessage ?? '')}`
 }

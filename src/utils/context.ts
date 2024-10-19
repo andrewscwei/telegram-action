@@ -12,11 +12,11 @@ export type Context = {
 
 export function getContext(values?: Partial<Context>): Context {
   const actor = values?.actor ?? evalOrThrows(() => github.context.actor, 'actor')
-  const commitMessage = values?.commitMessage ?? github.context.payload?.['head_commit']?.['message'] ?? '<no commit message>'
+  const commitMessage = values?.commitMessage ?? getCommitMessage() ?? '<no commit message>'
   const ref = values?.ref ?? evalOrThrows(() => github.context.ref, 'ref')
   const repo = values?.repo ?? evalOrThrows(() => `${github.context.repo.owner}/${github.context.repo.repo}`, 'repo')
   const runId = values?.runId ?? evalOrThrows(() => isNaN(github.context.runId) ? undefined : github.context.runId.toString(), 'run-id')
-  const sha = values?.sha ?? evalOrThrows(() => github.context.sha, 'sha')
+  const sha = values?.sha ?? evalOrThrows(() => getSHA(), 'sha')
   const workflow = values?.workflow ?? evalOrThrows(() => github.context.workflow, 'workflow')
 
   return {
@@ -27,6 +27,24 @@ export function getContext(values?: Partial<Context>): Context {
     runId,
     sha,
     workflow,
+  }
+}
+
+function getSHA(): string | undefined {
+  if (github.context.ref.startsWith('refs/pull/')) {
+    return github.context.payload['pull_request']?.['head']?.['sha']
+  }
+  else {
+    return github.context.sha
+  }
+}
+
+function getCommitMessage(): string | undefined {
+  if (github.context.ref.startsWith('refs/pull/')) {
+    return github.context.payload['pull_request']?.title
+  }
+  else {
+    return github.context.payload['head_commit']?.['message']
   }
 }
 

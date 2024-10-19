@@ -7,6 +7,7 @@ import { getInputs } from './inputs.js'
 describe('compose', () => {
   const mockContext = getContext({
     actor: 'foo',
+    commitMessage: 'foo',
     ref: 'foo',
     repo: 'foo',
     runId: 'foo',
