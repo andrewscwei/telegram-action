@@ -1,4 +1,4 @@
-# Telegram GitHub Action [![CD](https://github.com/andrewscwei/telegram-action/workflows/CD/badge.svg)](https://github.com/andrewscwei/telegram-action/actions/workflows/cd.yml)
+# Telegram GitHub Action [![CD](https://github.com/andrewscwei/telegram-action/workflows/Release/badge.svg)](https://github.com/andrewscwei/telegram-action/actions/workflows/release.yml)
 
 A GitHub Action for sending build status alerts to a Telegram chat.
 
