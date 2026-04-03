@@ -1,3 +1,10 @@
+## [2.0.1](https://github.com/andrewscwei/telegram-action/compare/v2.0.0...v2.0.1) (2026-04-03)
+
+
+### Bug Fixes
+
+* Fix dist files ([43b4ff7](https://github.com/andrewscwei/telegram-action/commit/43b4ff7fb34544566f19a34fade59bbe8a404de1))
+
 # [2.0.0](https://github.com/andrewscwei/telegram-action/compare/v1.4.1...v2.0.0) (2026-04-03)
 
 
