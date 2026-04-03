@@ -1,14 +1,15 @@
 import { assert } from 'chai'
 import { describe, it } from 'mocha'
+
 import { compose, composeActions, composeBody } from './compose.js'
 import { getContext } from './context.js'
 import { getInputs } from './inputs.js'
 
 describe('compose', () => {
   const mockContext = getContext({
+    ref: 'foo',
     actor: 'foo',
     commitMessage: 'foo',
-    ref: 'foo',
     repo: 'foo',
     runId: 'foo',
     sha: 'foo',
@@ -16,19 +17,19 @@ describe('compose', () => {
   })
 
   const mockSuccessInputs = getInputs({
-    prefixes: { success: 'bar', failure: 'baz', cancelled: 'qux' },
-    isSuccess: true,
+    action: { label: 'bar', url: 'baz' },
     botToken: 'foo',
     chatId: 'foo',
-    action: { label: 'bar', url: 'baz' },
+    prefixes: { cancelled: 'qux', failure: 'baz', success: 'bar' },
+    isSuccess: true,
   })
 
   const mockFailureInputs = getInputs({
-    prefixes: { success: 'bar', failure: 'baz', cancelled: 'qux' },
-    isSuccess: false,
+    action: { label: 'bar', url: 'baz' },
     botToken: 'foo',
     chatId: 'foo',
-    action: { label: 'bar', url: 'baz' },
+    prefixes: { cancelled: 'qux', failure: 'baz', success: 'bar' },
+    isSuccess: false,
   })
 
   it('can compose body', () => {

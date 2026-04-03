@@ -1,4 +1,5 @@
 import { describe, it } from 'mocha'
+
 import { escapeMarkdownV2 } from '../utils/escapeMarkdownV2.js'
 import { sendMessage } from './sendMessage.js'
 
@@ -13,8 +14,7 @@ describe('bot', () => {
           botToken,
           chatId,
         })
-      }
-      catch (err) {
+      } catch (err) {
         console.error(err)
       }
     })

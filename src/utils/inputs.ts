@@ -2,19 +2,19 @@ import * as core from '@actions/core'
 import assert from 'assert'
 
 export type Inputs = {
-  prefixes: {
-    success: string
-    failure: string
-    cancelled: string
-  }
-  botToken: string
-  chatId: string
-  isSuccess: boolean
-  isCancelled?: boolean
   action?: {
     label: string
     url: string
   }
+  botToken: string
+  chatId: string
+  prefixes: {
+    cancelled: string
+    failure: string
+    success: string
+  }
+  isCancelled?: boolean
+  isSuccess: boolean
 }
 
 export function getStringInput(id: string, defaultValue?: string): string {
@@ -22,10 +22,9 @@ export function getStringInput(id: string, defaultValue?: string): string {
     const input = core.getInput(id, { required: true, trimWhitespace: true })
 
     return input
-  }
-  catch (err) {
+  } catch (err) {
     if (defaultValue !== undefined) return defaultValue
-    throw Error(`Required string input with ID <${id}> is not provided`)
+    throw Error(`Required string input with ID <${id}> is not provided`, { cause: err })
   }
 }
 
@@ -34,10 +33,9 @@ export function getBooleanInput(id: string, defaultValue?: boolean): boolean {
     const input = core.getBooleanInput(id, { required: true })
 
     return input
-  }
-  catch (err) {
+  } catch (err) {
     if (defaultValue !== undefined) return defaultValue
-    throw Error(`Required boolean input with ID <${id}> is not provided`)
+    throw Error(`Required boolean input with ID <${id}> is not provided`, { cause: err })
   }
 }
 
@@ -57,15 +55,15 @@ export function getInputs(mock?: Partial<Inputs>): Inputs {
   assert(hasAction || hasNoAction, Error('Both <action-label> and <action-url> inputs must be provided'))
 
   return {
-    prefixes: {
-      success: successPrefix,
-      failure: failurePrefix,
-      cancelled: cancelledPrefix,
-    },
     botToken,
     chatId,
-    isSuccess,
+    prefixes: {
+      cancelled: cancelledPrefix,
+      failure: failurePrefix,
+      success: successPrefix,
+    },
     isCancelled,
+    isSuccess,
     ...hasAction ? {
       action: {
         label: actionLabel,

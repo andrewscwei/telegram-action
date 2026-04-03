@@ -1,5 +1,6 @@
 import { assert } from 'chai'
 import { describe, it } from 'mocha'
+
 import { getBooleanInput, getInputs, getStringInput } from './inputs.js'
 
 describe('inputs', () => {
@@ -27,11 +28,11 @@ describe('inputs', () => {
 
   it('throws when inputs has either action-label or action-url defined but not both', () => {
     assert.throws(() => getInputs({
-      prefixes: { success: 'bar', failure: 'baz' },
-      isSuccess: true,
+      action: { label: 'bar' },
       botToken: 'foo',
       chatId: 'foo',
-      action: { label: 'bar' },
+      prefixes: { failure: 'baz', success: 'bar' },
+      isSuccess: true,
     } as any))
   })
 
@@ -40,26 +41,26 @@ describe('inputs', () => {
       botToken: 'foo',
       chatId: 'foo',
     }), {
-      prefixes: { success: '🤖', failure: '😱', cancelled: '🫥' },
       botToken: 'foo',
       chatId: 'foo',
-      isSuccess: false,
+      prefixes: { cancelled: '🫥', failure: '😱', success: '🤖' },
       isCancelled: false,
+      isSuccess: false,
     })
 
     assert.deepEqual(getInputs({
-      prefixes: { success: 'bar', failure: 'baz', cancelled: 'qux' },
-      isSuccess: true,
+      action: { label: 'bar', url: 'baz' },
       botToken: 'foo',
       chatId: 'foo',
-      action: { label: 'bar', url: 'baz' },
+      prefixes: { cancelled: 'qux', failure: 'baz', success: 'bar' },
+      isSuccess: true,
     }), {
-      prefixes: { success: 'bar', failure: 'baz', cancelled: 'qux' },
+      action: { label: 'bar', url: 'baz' },
       botToken: 'foo',
       chatId: 'foo',
-      isSuccess: true,
+      prefixes: { cancelled: 'qux', failure: 'baz', success: 'bar' },
       isCancelled: false,
-      action: { label: 'bar', url: 'baz' },
+      isSuccess: true,
     })
   })
 })

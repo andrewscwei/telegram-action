@@ -13,11 +13,9 @@ export function composeStatus(context: Context, inputs: Inputs) {
 
   if (inputs.isCancelled) {
     statusStr += `${prefix(inputs.prefixes.cancelled)}*BUILD CANCELLED*`
-  }
-  else if (inputs.isSuccess) {
+  } else if (inputs.isSuccess) {
     statusStr += `${prefix(inputs.prefixes.success)}*BUILD PASSED*`
-  }
-  else {
+  } else {
     statusStr += `${prefix(inputs.prefixes.failure)}*BUILD FAILED*`
   }
 
@@ -30,8 +28,7 @@ export function composeStatus(context: Context, inputs: Inputs) {
     const refStr = `[\\(${escapeMarkdownV2(`pr-#${prNumber}`)}\\)](${repoUrl}/pull/${prNumber})`
 
     statusStr += ` in ${repoStr} ${refStr}`
-  }
-  else {
+  } else {
     const matches = `${context.ref}`.match(/^refs\/[^/]+\/(.*)$/)
     const refName = matches?.[1] ?? context.ref
     const refStr = `[\\(${escapeMarkdownV2(refName)}\\)](${repoUrl}/tree/${refName})`
@@ -51,8 +48,7 @@ export function composeBody(context: Context, inputs: Inputs) {
     const prNumber = matches?.[1] ?? context.ref
 
     shaStr = `[\\[${context.sha.substring(0, 7)}\\]](${repoUrl}/pull/${prNumber}/commits/${context.sha})`
-  }
-  else {
+  } else {
     shaStr = `[\\[${context.sha.substring(0, 7)}\\]](${repoUrl}/commit/${context.sha})`
   }
 
