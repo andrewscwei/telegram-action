@@ -1,3 +1,15 @@
+# [2.0.0](https://github.com/andrewscwei/telegram-action/compare/v1.4.1...v2.0.0) (2026-04-03)
+
+
+### Build System
+
+* Upgrade dependencies ([eedae91](https://github.com/andrewscwei/telegram-action/commit/eedae9137aa0dd6cc064ebc09e2aad744f9b1eff))
+
+
+### BREAKING CHANGES
+
+* Upgraded to Node 24
+
 ## [1.4.1](https://github.com/andrewscwei/telegram-action/compare/v1.4.0...v1.4.1) (2024-10-19)
 
 
