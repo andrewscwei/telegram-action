@@ -8,15 +8,23 @@ function prefix(value?: string) {
   return `${value} `
 }
 
+function getLabel(context: Context) {
+  if (context.eventName === 'schedule') return 'CRON'
+  if (context.ref.startsWith('refs/pull/')) return 'MERGE'
+
+  return 'BUILD'
+}
+
 export function composeStatus(context: Context, inputs: Inputs) {
+  const label = getLabel(context)
   let statusStr = ''
 
   if (inputs.isCancelled) {
-    statusStr += `${prefix(inputs.prefixes.cancelled)}*BUILD CANCELLED*`
+    statusStr += `${prefix(inputs.prefixes.cancelled)}*${label} CANCELLED*`
   } else if (inputs.isSuccess) {
-    statusStr += `${prefix(inputs.prefixes.success)}*BUILD PASSED*`
+    statusStr += `${prefix(inputs.prefixes.success)}*${label} PASSED*`
   } else {
-    statusStr += `${prefix(inputs.prefixes.failure)}*BUILD FAILED*`
+    statusStr += `${prefix(inputs.prefixes.failure)}*${label} FAILED*`
   }
 
   const repoUrl = `https://github.com/${context.repo}`
@@ -40,6 +48,8 @@ export function composeStatus(context: Context, inputs: Inputs) {
 }
 
 export function composeBody(context: Context, inputs: Inputs) {
+  if (!context.commitMessage) return ''
+
   const repoUrl = `https://github.com/${context.repo}`
   let shaStr
 
@@ -52,7 +62,7 @@ export function composeBody(context: Context, inputs: Inputs) {
     shaStr = `[\\[${context.sha.substring(0, 7)}\\]](${repoUrl}/commit/${context.sha})`
   }
 
-  return `${shaStr} ${escapeMarkdownV2(context.commitMessage ?? '')}`
+  return `${shaStr} ${escapeMarkdownV2(context.commitMessage)}`
 }
 
 export function composeFooter(context: Context, inputs: Inputs) {
@@ -67,7 +77,7 @@ export function composeActions(context: Context, inputs: Inputs) {
   const jobUrl = `${repoUrl}/actions/runs/${context.runId}`
   const buttons = []
 
-  buttons.push(`[View job](${jobUrl})`)
+  buttons.push(`[View Job](${jobUrl})`)
 
   if (inputs.isSuccess && inputs.action) {
     buttons.push(`[*${escapeMarkdownV2(inputs.action.label)}*](${inputs.action.url})`)
@@ -77,11 +87,14 @@ export function composeActions(context: Context, inputs: Inputs) {
 }
 
 export function compose(context: Context, inputs: Inputs) {
+  const body = composeBody(context, inputs)
   let ret = ''
   ret += composeStatus(context, inputs)
   ret += '\n'
-  ret += composeBody(context, inputs)
-  ret += '\n'
+  if (body) {
+    ret += body
+    ret += '\n'
+  }
   ret += composeFooter(context, inputs)
   ret += '\n'
   ret += '\n'

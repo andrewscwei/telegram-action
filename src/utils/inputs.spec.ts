@@ -26,17 +26,7 @@ describe('inputs', () => {
     assert.throws(() => getInputs())
   })
 
-  it('throws when inputs has either action-label or action-url defined but not both', () => {
-    assert.throws(() => getInputs({
-      action: { label: 'bar' },
-      botToken: 'foo',
-      chatId: 'foo',
-      prefixes: { failure: 'baz', success: 'bar' },
-      isSuccess: true,
-    } as any))
-  })
-
-  it('can get all inputs with custom values', () => {
+it('can get all inputs with custom values', () => {
     assert.deepEqual(getInputs({
       botToken: 'foo',
       chatId: 'foo',

@@ -10,6 +10,7 @@ describe('compose', () => {
     ref: 'foo',
     actor: 'foo',
     commitMessage: 'foo',
+    eventName: 'push',
     repo: 'foo',
     runId: 'foo',
     sha: 'foo',
