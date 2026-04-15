@@ -1,3 +1,16 @@
+# [2.1.0](https://github.com/andrewscwei/telegram-action/compare/v2.0.1...v2.1.0) (2026-04-15)
+
+
+### Bug Fixes
+
+* Fix lint issues ([a71b7af](https://github.com/andrewscwei/telegram-action/commit/a71b7af802f6cd308f13222872949ac345407a03))
+* Update label for pull request context ([3f79d62](https://github.com/andrewscwei/telegram-action/commit/3f79d627ffef6eb2c6b99f4334a758f0251aabba))
+
+
+### Features
+
+* Separate titles for build, PR and CRON jobs ([96f3ec2](https://github.com/andrewscwei/telegram-action/commit/96f3ec2c61bef92a57de9802ae36d8c931a92637))
+
 ## [2.0.1](https://github.com/andrewscwei/telegram-action/compare/v2.0.0...v2.0.1) (2026-04-03)
 
 
