@@ -27,6 +27,10 @@ The prefix to use in a success alert, defaults to 🤖.
 
 The prefix to use in a failure alert, defaults to 😱.
 
+### `cancelled-prefix`
+
+The prefix to use in a cancelled alert, defaults to 🫥.
+
 ### `bot-token`
 
 **Required**: The token of the Telegram bot that will be sending the messages.
