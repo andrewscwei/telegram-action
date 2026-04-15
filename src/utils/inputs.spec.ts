@@ -26,7 +26,7 @@ describe('inputs', () => {
     assert.throws(() => getInputs())
   })
 
-it('can get all inputs with custom values', () => {
+  it('can get all inputs with custom values', () => {
     assert.deepEqual(getInputs({
       botToken: 'foo',
       chatId: 'foo',
