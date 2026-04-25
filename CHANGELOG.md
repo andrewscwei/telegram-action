@@ -1,3 +1,10 @@
+# [2.2.0](https://github.com/andrewscwei/telegram-action/compare/v2.1.0...v2.2.0) (2026-04-25)
+
+
+### Features
+
+* Properly handle app as actor ([b9b8eca](https://github.com/andrewscwei/telegram-action/commit/b9b8eca8b4f08a8c0c2d235fd1f21a6c0fd560fb))
+
 # [2.1.0](https://github.com/andrewscwei/telegram-action/compare/v2.0.1...v2.1.0) (2026-04-15)
 
 
