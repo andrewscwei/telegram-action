@@ -1,3 +1,10 @@
+# [2.3.0](https://github.com/andrewscwei/telegram-action/compare/v2.2.0...v2.3.0) (2026-06-29)
+
+
+### Features
+
+* Upgrade actions ([f07599a](https://github.com/andrewscwei/telegram-action/commit/f07599a3cdf3cc33f5395f4358d40e9eac93cb29))
+
 # [2.2.0](https://github.com/andrewscwei/telegram-action/compare/v2.1.0...v2.2.0) (2026-04-25)
 
 
