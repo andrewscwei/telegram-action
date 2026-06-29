@@ -5,7 +5,7 @@ A GitHub Action for sending build status alerts to a Telegram chat.
 ## Usage
 
 ```yml
-uses: andrewscwei/telegram-action@v1
+uses: andrewscwei/telegram-action@v2
 with:
   success: ${{ needs.build.result == 'success' }}
   cancelled: ${{ needs.build.result == 'cancelled' }}
